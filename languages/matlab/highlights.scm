@@ -83,7 +83,7 @@ superclass: [(struct (identifier)) (identifier)] @type
 
 ;; Operators
 "=" @operator
-(operation [ ">"
+(operation [">"
             "<"
             "=="
             "<="
@@ -93,17 +93,23 @@ superclass: [(struct (identifier)) (identifier)] @type
             "~="
             "*"
             ".*"
+            "./"
             "/"
             "\\"
-            "./"
+            ".\\"
             "^"
             ".^"
-            "+"] @operator)
+            "+"
+            "-"
+            "'"] @operator)
 
 ;; boolean operator
 [
     "&&"
     "||"
+    "|"
+    "&"
+    "~"
 ] @operator
 
 ;; Number
