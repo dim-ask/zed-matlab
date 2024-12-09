@@ -4,32 +4,40 @@ function_keyword: (function_keyword) @keyword.function
 
 (function_definition
 function_name: (identifier) @function
-(end) @function)
-
+(end) @keyword.function)
 function_name: (identifier) @function.call
+; (function_definition end: (end) @keyword.function) ; not needed because we defined above already
 
 (parameter_list (identifier) @parameter)
 
+
+(if_statement
+  "if" @keyword.conditional)
+
+(if_statement (end) @keyword.conditional)
+
+(switch_statement
+  "switch" @keyword.conditional)
+
+(switch_statement (end) @keyword.conditional)
+
 [
-    "if"
     "elseif"
     "else"
-    "switch"
     "case"
     "otherwise"
-] @conditional
+] @keyword.conditional
 
-(if_statement (end) @conditional)
-(switch_statement (end) @conditional)
 
-["for" "while"] @repeat
-(for_statement (end) @repeat)
-(while_statement (end) @repeat)
+(for_statement ["for" @keyword.repeat])
+; (for_statement (pattern) @variable)
+(for_statement (end) @keyword.repeat)
+(while_statement ["while" @keyword.repeat])
+(while_statement (end) @keyword.repeat)
 
-["try" "catch"] @exception
-(try_statement (end) @exception)
+["try" "catch"] @keyword.exception
+(try_statement (end) @keyword.exception)
 
-(function_definition end: (end) @keyword)
 
 ["return" "break" "continue"] @keyword.return
 
@@ -96,20 +104,14 @@ superclass: [(struct (identifier)) (identifier)] @type
             "./"
             "/"
             "\\"
-            ".\\"
             "^"
             ".^"
-            "+"
-            "-"
-            "'"] @operator)
+            "+"] @operator)
 
 ;; boolean operator
 [
     "&&"
     "||"
-    "|"
-    "&"
-    "~"
 ] @operator
 
 ;; Number
@@ -120,5 +122,8 @@ superclass: [(struct (identifier)) (identifier)] @type
 (string) @spell
 
 ;; Comment
-(comment) @comment
-(comment) @spell
+
+
+;; Comment
+(comment "%") @comment
+; ((comment) @spell)    ; we decided we do not want spellchecking in comments
