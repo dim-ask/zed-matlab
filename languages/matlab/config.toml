@@ -7,5 +7,9 @@ brackets = [
     { start = "{", end = "}", close = true, newline = false },
     { start = "[", end = "]", close = true, newline = false },
     { start = "(", end = ")", close = true, newline = false },
+    { start = "\"", end = "\"", close = true, newline = false },
+    { start = "}'", end = "}'", close = false, newline = false }, # the next 4 lines: char string should autoclose BUT NOT if closing parenthesis, bracket etc is proceeding
+    { start = ")'", end = ")'", close = false, newline = false },
+    { start = "]'", end = "]'", close = false, newline = false },
     { start = "'", end = "'", close = true, newline = false },
 ]
